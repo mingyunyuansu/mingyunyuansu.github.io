@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Floyd&#39;s Tortoise and Hare | 施工中</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortois">
+<meta name="keywords" content="编程,算法,双指针">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Floyd&#39;s Tortoise and Hare">
+<meta property="og:url" content="https://mingyunyuansu.github.io/2018/02/09/Floyd's Tortoise and Hare/index.html">
+<meta property="og:site_name" content="施工中">
+<meta property="og:description" content="之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortois">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://mingyunyuansu.github.io/assets/Tortoise%20and%20Hare.png">
+<meta property="og:updated_time" content="2018-12-25T16:13:19.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Floyd&#39;s Tortoise and Hare">
+<meta name="twitter:description" content="之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortois">
+<meta name="twitter:image" content="https://mingyunyuansu.github.io/assets/Tortoise%20and%20Hare.png">
+  
+    <link rel="alternate" href="/atom.xml" title="施工中" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">施工中</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mingyunyuansu.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Floyd&#39;s Tortoise and Hare" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/09/Floyd's Tortoise and Hare/" class="article-date">
+  <time datetime="2018-02-08T16:00:00.000Z" itemprop="datePublished">2018-02-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Floyd&#39;s Tortoise and Hare
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortoise and Hare算法（那个数组的问题也很神，不过今天就只谈双指针了），这个算法不仅可以确定一个链表是否有环，还能确定环的入口。这听起来不太可能，乍一看由于链表的单向性，当我们处于链表内部时如果不引入外部储存空间则无法看到链表的全局面貌，所以判断条件就无从入手，但是该算法却用简单的数字代换提供了巧妙解法，我非常奇怪为何我们的算法课不教这个算法，是因为太简单了吗？</p>
+<ul>
+<li><h4 id="step1-判断环的存在"><a href="#step1-判断环的存在" class="headerlink" title="step1 判断环的存在"></a>step1 判断环的存在</h4><p>这步原理之前其实说过，不过有人跟我说看不懂，所以详细说一说。我们先定义两个指针用于遍历，一个一次走两步（也就是Hare，快指针），一个只走一步（Tortoise，慢指针），两指针同时从链表头出发。显然，由于链表的单向性，如果有环，则遍历会永远持续下去（一直沿环绕）；如果没环，则快指针迟早会到链表尾，所以一旦碰到nullptr即可确定无环。<br><br><br>可是如果没碰到nullptr，我们不能确定快指针究竟是“还在路上”还是已经沿着环绕了一圈又一圈（因为在链表内部只看得到局部）。好吧，结论就是，如果有环，时间放到无限长，慢指针和快指针肯定都会进入环然后在上面绕啊绕，并且可以证明在绕啊绕的过程中两个指针一定会相遇。<br><br><br>换言之我们只要在遍历的过程中不断检查两件事，一是快指针是否碰到空，为空则直接表明无环；二是快慢指针是否相等，若相等则表明有环。二者之一必定发生，problem solved。<br><br><br>但是别人肯定会觉得你说两指针一定会相遇有种钦定的感觉，所以还要说明一下。设一个链表非环部分长度为s，环部分长度为l，某时刻慢指针走了k步，那么快指针走了2k步。当两个指针相遇时，不管他们已经绕了几圈，他们之间的步数差距为肯定为l的倍数，设为n倍，即 (2k-s)-(k-s) = k = nl，k为不断增长的整数，这个式子迟早会成立，也就是说相遇的情况一定存在。这很好理解，两个指针走过了相同的非环部分s，然后在环上快指针比且仅比慢指针多走了nl步，跟没走是一样的，他们会停在同一点。当然你会说这个说法不严谨，因为有可能因为环很长，两指针还没进入环时步差就已经达到l的倍数，式子不适用。但是其实没关系，这式子不必是等价条件，因为时间无限长的情况下两指针一定会纷纷进入环，然后步差为nl的情况就一定会出现，能证明其存在性就可以了。严格的数学证明可以找数学归纳法，反证法，数论什么的，但是我觉得没有这个式子好理解。顺便一提，其实快慢指针速度只要不一样就行，不一定得是两倍，上面的式子依然是成立的，因为n的取值也是所有自然数。</p>
+</li>
+<li><h4 id="step2-确定环入口"><a href="#step2-确定环入口" class="headerlink" title="step2 确定环入口"></a>step2 确定环入口</h4><p><img src="/assets/Tortoise and Hare.png" alt=""><br><br>方法是，在第一步找到快慢指针的相遇结点后，让其中一个指针回到链表头，然后两个指针都一次走一步继续遍历，当两指针再次相遇时，该结点即为环的入口。<br><br><br>为啥？其实很简单，我们不考虑数学也先不考虑两个指针已经绕了几圈，直接设非环部分长s，两指针相遇时的结点相对环起点的偏移量offset是x，如上图。慢指针这时走过的长度至少是s+x，而快指针则至少是2*(s+x)，毕竟任何时候快指针走过的长度都是慢指针的两倍。但是他们相遇了！这说明s+x的长度，恰好是环的长度，才能使得快指针多走s+x的距离依然能与慢指针相遇。那么这时只要让一个指针回到链表头，另一个留在x处，两指针都一次走一步，他们一定会在走过s长度后相遇，相遇的结点即是环入口，简直浑然天成。<br><br><br>不过一个非常显然的问题就是，上面也说了慢指针走过的距离只不过“至少”是s+x，他有没有多绕几圈我哪知道？其实不妨设慢指针走过的长度为s+x+nl（n=0,1,2,3,.., l为环长度），则快指针就是2(s+x+nl)，结论就变成s+x+nl的长度是环的长度（的倍数），nl本身就是环长度倍数，取模去掉，所以剩下部分结论不变，QED。</p>
+</li>
+</ul>
+<p>写这东西没想到这么费时间，不过想必以后别人问我可以说得很清楚了。<br>算法可以直接用在142.Linked List Cycle II上，一分钟就能写出来，大概是太直接了这题都没有Run code的按钮，只能直接Submit。</p>
+<hr>
+<p>2018-2-21 更新<br><br>再次发现环检测的应用，leetcode 202.happy number，题目是，给定一个数n，按位拆开成每一位，每一位平方，然后相加，得到新数再重复上述过程。如果最后能得到1，则说这个数是happy number，比如19<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1^2 + 9^2 = 82</span><br><span class="line">8^2 + 2^2 = 68</span><br><span class="line">6^2 + 8^2 = 100</span><br><span class="line">1^2 + 0^2 + 0^2 = 1</span><br></pre></td></tr></table></figure>
+<p>故19是happy number。现要判断一个给定的数是否是happy number。<br><br>emmm, 这题题目告诉了一个信息————一个数如果一直这样运算下去一定会出现循环而不会永远都是新数字，虽然我不知道怎么证明（这大概跟所有分数都是有理数有什么关系）。最直观的办法当然是手动模拟计算，然后维护一个集合set，每出现计算结果是新的就把新数加入到set中，如果发现结果是1则返回真，发现结果在set中已经有则返回假（此时形成循环）。<br><br>但是仔细想一想这题显然可以抽象成上面的环检测的问题，于是就有：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calcSum</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            <span class="keyword">int</span> num = n % <span class="number">10</span>;</span><br><span class="line">            sum += num * num;</span><br><span class="line">            n /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> slow = n, fast = n;</span><br><span class="line">       <span class="keyword">do</span>&#123;</span><br><span class="line">           slow = calcSum(slow);</span><br><span class="line">           fast = calcSum(fast);</span><br><span class="line">           fast = calcSum(fast);           </span><br><span class="line">       &#125; <span class="keyword">while</span>(slow != fast);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> slow == <span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mingyunyuansu.github.io/2018/02/09/Floyd's Tortoise and Hare/" data-id="cjq3y9fyy0003d4ihj0i30qw1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/双指针/">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/11/136. Single Number（一个很骚的位操作）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          136. Single Number（一个很骚的位操作）
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/出行/">出行</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂记/">杂记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双指针/">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学/">大学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性/">性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游记/">游记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/留学/">留学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程/">编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LeetCode/" style="font-size: 13.33px;">LeetCode</a> <a href="/tags/双指针/" style="font-size: 10px;">双指针</a> <a href="/tags/大学/" style="font-size: 20px;">大学</a> <a href="/tags/性/" style="font-size: 10px;">性</a> <a href="/tags/游记/" style="font-size: 13.33px;">游记</a> <a href="/tags/留学/" style="font-size: 10px;">留学</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编程/" style="font-size: 16.67px;">编程</a> <a href="/tags/随想/" style="font-size: 16.67px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/24/942. DI String Match/">942. DI String Match</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/25/毕业&旅行&分别/">毕业&amp;旅行&amp;分别</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/19/游武夷山/">游武夷山</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/13/抑郁症/">关于抑郁症</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/09/毕设前夕/">毕设之前</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Robert<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
