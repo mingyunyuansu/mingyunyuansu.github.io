@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="施工中">
 <meta property="og:description" content="之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortois">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://mingyunyuansu.github.io/source/images/Tortoise%20and%20Hare.png">
-<meta property="og:updated_time" content="2018-12-25T17:22:09.521Z">
+<meta property="og:image" content="https://mingyunyuansu.github.io/images/Tortoise%20and%20Hare.png">
+<meta property="og:updated_time" content="2018-12-25T17:25:17.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Floyd&#39;s Tortoise and Hare">
 <meta name="twitter:description" content="之前提过，用速率不同的两个指针遍历一个链表，可以在O(N)时间内判断出该链表是否有环（这是一个很经典的问题，我的舍友面试就遇到然后不幸挂了）。今天机缘巧合，我在看一个找一个数组中的重复元素的问题时发现最佳解法居然还是这种双指针方法（毕竟数组其实就是钉死的链表），也就是说这已经可以抽象成一个有效的算法思想了，果不其然顺藤摸瓜摸到quora上发现这种双指针跑链表的原型叫做Floyd’s Tortois">
-<meta name="twitter:image" content="https://mingyunyuansu.github.io/source/images/Tortoise%20and%20Hare.png">
+<meta name="twitter:image" content="https://mingyunyuansu.github.io/images/Tortoise%20and%20Hare.png">
   
     <link rel="alternate" href="/atom.xml" title="施工中" type="application/atom+xml">
   
@@ -97,7 +97,7 @@
 <ul>
 <li><h4 id="step1-判断环的存在"><a href="#step1-判断环的存在" class="headerlink" title="step1 判断环的存在"></a>step1 判断环的存在</h4><p>这步原理之前其实说过，不过有人跟我说看不懂，所以详细说一说。我们先定义两个指针用于遍历，一个一次走两步（也就是Hare，快指针），一个只走一步（Tortoise，慢指针），两指针同时从链表头出发。显然，由于链表的单向性，如果有环，则遍历会永远持续下去（一直沿环绕）；如果没环，则快指针迟早会到链表尾，所以一旦碰到nullptr即可确定无环。<br><br><br>可是如果没碰到nullptr，我们不能确定快指针究竟是“还在路上”还是已经沿着环绕了一圈又一圈（因为在链表内部只看得到局部）。好吧，结论就是，如果有环，时间放到无限长，慢指针和快指针肯定都会进入环然后在上面绕啊绕，并且可以证明在绕啊绕的过程中两个指针一定会相遇。<br><br><br>换言之我们只要在遍历的过程中不断检查两件事，一是快指针是否碰到空，为空则直接表明无环；二是快慢指针是否相等，若相等则表明有环。二者之一必定发生，problem solved。<br><br><br>但是别人肯定会觉得你说两指针一定会相遇有种钦定的感觉，所以还要说明一下。设一个链表非环部分长度为s，环部分长度为l，某时刻慢指针走了k步，那么快指针走了2k步。当两个指针相遇时，不管他们已经绕了几圈，他们之间的步数差距为肯定为l的倍数，设为n倍，即 (2k-s)-(k-s) = k = nl，k为不断增长的整数，这个式子迟早会成立，也就是说相遇的情况一定存在。这很好理解，两个指针走过了相同的非环部分s，然后在环上快指针比且仅比慢指针多走了nl步，跟没走是一样的，他们会停在同一点。当然你会说这个说法不严谨，因为有可能因为环很长，两指针还没进入环时步差就已经达到l的倍数，式子不适用。但是其实没关系，这式子不必是等价条件，因为时间无限长的情况下两指针一定会纷纷进入环，然后步差为nl的情况就一定会出现，能证明其存在性就可以了。严格的数学证明可以找数学归纳法，反证法，数论什么的，但是我觉得没有这个式子好理解。顺便一提，其实快慢指针速度只要不一样就行，不一定得是两倍，上面的式子依然是成立的，因为n的取值也是所有自然数。</p>
 </li>
-<li><h4 id="step2-确定环入口"><a href="#step2-确定环入口" class="headerlink" title="step2 确定环入口"></a>step2 确定环入口</h4><p><img src="/source/images/Tortoise and Hare.png" alt=""><br><br>方法是，在第一步找到快慢指针的相遇结点后，让其中一个指针回到链表头，然后两个指针都一次走一步继续遍历，当两指针再次相遇时，该结点即为环的入口。<br><br><br>为啥？其实很简单，我们不考虑数学也先不考虑两个指针已经绕了几圈，直接设非环部分长s，两指针相遇时的结点相对环起点的偏移量offset是x，如上图。慢指针这时走过的长度至少是s+x，而快指针则至少是2*(s+x)，毕竟任何时候快指针走过的长度都是慢指针的两倍。但是他们相遇了！这说明s+x的长度，恰好是环的长度，才能使得快指针多走s+x的距离依然能与慢指针相遇。那么这时只要让一个指针回到链表头，另一个留在x处，两指针都一次走一步，他们一定会在走过s长度后相遇，相遇的结点即是环入口，简直浑然天成。<br><br><br>不过一个非常显然的问题就是，上面也说了慢指针走过的距离只不过“至少”是s+x，他有没有多绕几圈我哪知道？其实不妨设慢指针走过的长度为s+x+nl（n=0,1,2,3,.., l为环长度），则快指针就是2(s+x+nl)，结论就变成s+x+nl的长度是环的长度（的倍数），nl本身就是环长度倍数，取模去掉，所以剩下部分结论不变，QED。</p>
+<li><h4 id="step2-确定环入口"><a href="#step2-确定环入口" class="headerlink" title="step2 确定环入口"></a>step2 确定环入口</h4><p><img src="/images/Tortoise and Hare.png" alt=""><br><br>方法是，在第一步找到快慢指针的相遇结点后，让其中一个指针回到链表头，然后两个指针都一次走一步继续遍历，当两指针再次相遇时，该结点即为环的入口。<br><br><br>为啥？其实很简单，我们不考虑数学也先不考虑两个指针已经绕了几圈，直接设非环部分长s，两指针相遇时的结点相对环起点的偏移量offset是x，如上图。慢指针这时走过的长度至少是s+x，而快指针则至少是2*(s+x)，毕竟任何时候快指针走过的长度都是慢指针的两倍。但是他们相遇了！这说明s+x的长度，恰好是环的长度，才能使得快指针多走s+x的距离依然能与慢指针相遇。那么这时只要让一个指针回到链表头，另一个留在x处，两指针都一次走一步，他们一定会在走过s长度后相遇，相遇的结点即是环入口，简直浑然天成。<br><br><br>不过一个非常显然的问题就是，上面也说了慢指针走过的距离只不过“至少”是s+x，他有没有多绕几圈我哪知道？其实不妨设慢指针走过的长度为s+x+nl（n=0,1,2,3,.., l为环长度），则快指针就是2(s+x+nl)，结论就变成s+x+nl的长度是环的长度（的倍数），nl本身就是环长度倍数，取模去掉，所以剩下部分结论不变，QED。</p>
 </li>
 </ul>
 <p>写这东西没想到这么费时间，不过想必以后别人问我可以说得很清楚了。<br>算法可以直接用在142.Linked List Cycle II上，一分钟就能写出来，大概是太直接了这题都没有Run code的按钮，只能直接Submit。</p>
