@@ -5,15 +5,20 @@
   
 
   
-  <title>Tag: 双指针 | 施工中</title>
+  <title>gdb使用笔记 | 施工中</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="施工中">
-<meta property="og:url" content="https://mingyunyuansu.github.io/tags/双指针/index.html">
+  <meta name="description" content="我一直都在寻找一个适合自己的调试工具：  VC6, code block太丑，也不简便 Visual Studio虽然功能爆炸，但是固态硬盘启动都要数秒钟，创建项目麻烦，功能眼花缭乱 Clion用过一段时间，好用到让人害怕，但是student licence快过期了，而且同样太过臃肿，我又不写工程最后还是回到了editor编辑，gcc编译，printf大法人肉debug，实在不行再开VS调试。学了">
+<meta name="keywords" content="编程,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gdb使用笔记">
+<meta property="og:url" content="https://mingyunyuansu.github.io/2018/01/19/gdb使用笔记/index.html">
 <meta property="og:site_name" content="施工中">
+<meta property="og:description" content="我一直都在寻找一个适合自己的调试工具：  VC6, code block太丑，也不简便 Visual Studio虽然功能爆炸，但是固态硬盘启动都要数秒钟，创建项目麻烦，功能眼花缭乱 Clion用过一段时间，好用到让人害怕，但是student licence快过期了，而且同样太过臃肿，我又不写工程最后还是回到了editor编辑，gcc编译，printf大法人肉debug，实在不行再开VS调试。学了">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-25T16:18:51.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="施工中">
+<meta name="twitter:title" content="gdb使用笔记">
+<meta name="twitter:description" content="我一直都在寻找一个适合自己的调试工具：  VC6, code block太丑，也不简便 Visual Studio虽然功能爆炸，但是固态硬盘启动都要数秒钟，创建项目麻烦，功能眼花缭乱 Clion用过一段时间，好用到让人害怕，但是student licence快过期了，而且同样太过臃肿，我又不写工程最后还是回到了editor编辑，gcc编译，printf大法人肉debug，实在不行再开VS调试。学了">
   
     <link rel="alternate" href="/atom.xml" title="施工中" type="application/atom+xml">
   
@@ -60,40 +65,83 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/09/Floyd's Tortoise and Hare/" class="archive-article-date">
-  <time datetime="2018-02-08T16:00:00.000Z" itemprop="datePublished">Feb 9</time>
+        <section id="main"><article id="post-gdb使用笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/19/gdb使用笔记/" class="article-date">
+  <time datetime="2018-01-18T16:00:00.000Z" itemprop="datePublished">2018-01-19</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/09/Floyd's Tortoise and Hare/">Floyd&#39;s Tortoise and Hare</a>
+    <h1 class="article-title" itemprop="name">
+      gdb使用笔记
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我一直都在寻找一个适合自己的调试工具：</p>
+<ul>
+<li>VC6, code block太丑，也不简便</li>
+<li>Visual Studio虽然功能爆炸，但是固态硬盘启动都要数秒钟，创建项目麻烦，功能眼花缭乱</li>
+<li>Clion用过一段时间，好用到让人害怕，但是student licence快过期了，而且同样太过臃肿，我又不写工程<br><br>最后还是回到了editor编辑，gcc编译，printf大法人肉debug，实在不行再开VS调试。学了汇编之后，感觉汇编那个debug工具是真好用，再一次萌生寻找新工具的想法。今天终于找到了，那就是gdb，跟vim同级的上古神器，但是不像vim那么难学（虽然学会了vim确实很好用），gdb的基本功能用起来相当直观而且人性化。</li>
+</ul>
+<h1 id="要使用gdb，则在编译文件时要加-g-参数，生成符号表"><a href="#要使用gdb，则在编译文件时要加-g-参数，生成符号表" class="headerlink" title="要使用gdb，则在编译文件时要加 -g 参数，生成符号表"></a>要使用gdb，则在编译文件时要加 -g 参数，生成符号表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -g file.c</span><br><span class="line">gdb a.exe</span><br></pre></td></tr></table></figure>
+<ol>
+<li>l (list), 显示指定行号或指定函数附近的代码</li>
+<li>r (run), 开始运行程序，直到程序结束或碰到断点</li>
+<li>b (break), 设置断点，可行号，可函数名，如<code>b 12`</code>b main`</li>
+<li>c (continue), 从停顿处继续执行到结束或断点，注意程序开始运行时只能用r</li>
+<li>n (next), 执行一条语句，但是会把调用函数当作一个整体，也就是“不进去”</li>
+<li>s (step), 单步，执行一条单语句，遇到函数会进入函数内部。另外在gdb中直接回车默认执行上一条命令，因此单步调试也很方便</li>
+<li>u (until), 执行到指定行号或指定函数开头（也是必须开始运行了才能用）</li>
+<li>p (print), 打印一个变量值，如 <code>print i</code>, 如果是数组会打印整个数组，非常强大</li>
+<li>disp (display), 把一个表达式设置为display，如 <code>disp i</code>每当程序停下来时自动print该值</li>
+<li>cl (clear), 取消断点，和b的格式相同，若该处有多个断电则同时取消</li>
+<li>i (info), 可显示很多东西的信息，如i b，显示断点信息，i disp显示display信息，i lo显示所有局部变量</li>
+<li>bt (back trace), 显示当前运行时信息</li>
+<li>d (delete), en(enable), 删除单个display用<br>上面只是gdb常用功能中的一部分，gdb还有很多变态的功能，我一时半会儿用不到。另外在gdb中还可以自由调用函数，比如你在二叉树的题目，那么写一个打印二叉树的函数，就可以在调试的过程中打印二叉树(<code>call my_func()</code>), 很方便。</li>
+</ol>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mingyunyuansu.github.io/2018/01/19/gdb使用笔记/" data-id="cjq3ygnuh0000akihji7mq382" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/28/大四寒假LeetCode摸鱼笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          大四寒假LeetCode摸鱼笔记
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
 
 </section>
         
