@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hanoi Tower Problem | 施工中</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="更新：不得不说jekyll对markdown的支持不太完善，有些方言用不了。。。况且我是会HTML的呀，没有必要用这个。。。差不多可以找一个新的了 汉诺塔问题汉诺塔问题即梵塔问题，是一个非常有名的古代难题，具体题目如下：           “梵塔问题”源于以下的古老传说：    在世界中心贝那勒斯（印度北部的佛教圣地）的圣庙里，安放着一块黄铜板，板上插著三根细细的、镶上宝石的细针，细针像菜叶般粗">
+<meta name="keywords" content="大学,随想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hanoi Tower Problem">
+<meta property="og:url" content="https://mingyunyuansu.github.io/2016/11/17/Hanoi-Tower-Problem/index.html">
+<meta property="og:site_name" content="施工中">
+<meta property="og:description" content="更新：不得不说jekyll对markdown的支持不太完善，有些方言用不了。。。况且我是会HTML的呀，没有必要用这个。。。差不多可以找一个新的了 汉诺塔问题汉诺塔问题即梵塔问题，是一个非常有名的古代难题，具体题目如下：           “梵塔问题”源于以下的古老传说：    在世界中心贝那勒斯（印度北部的佛教圣地）的圣庙里，安放着一块黄铜板，板上插著三根细细的、镶上宝石的细针，细针像菜叶般粗">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-25T16:33:01.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hanoi Tower Problem">
+<meta name="twitter:description" content="更新：不得不说jekyll对markdown的支持不太完善，有些方言用不了。。。况且我是会HTML的呀，没有必要用这个。。。差不多可以找一个新的了 汉诺塔问题汉诺塔问题即梵塔问题，是一个非常有名的古代难题，具体题目如下：           “梵塔问题”源于以下的古老传说：    在世界中心贝那勒斯（印度北部的佛教圣地）的圣庙里，安放着一块黄铜板，板上插著三根细细的、镶上宝石的细针，细针像菜叶般粗">
+  
+    <link rel="alternate" href="/atom.xml" title="施工中" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">施工中</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mingyunyuansu.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Hanoi-Tower-Problem" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/17/Hanoi-Tower-Problem/" class="article-date">
+  <time datetime="2016-11-16T16:00:00.000Z" itemprop="datePublished">2016-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hanoi Tower Problem
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>更新：不得不说jekyll对markdown的支持不太完善，有些方言用不了。。。况且我是会HTML的呀，没有必要用这个。。。差不多可以找一个新的了</p>
+<h1 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h1><p>汉诺塔问题即梵塔问题，是一个非常有名的古代难题，具体题目如下：  </p>
+<p><blockquote><br>    <p><br>    “梵塔问题”源于以下的古老传说：<br><br>    在世界中心贝那勒斯（印度北部的佛教圣地）的圣庙里，安放着一块黄铜板，板上插著三根细细的、镶上宝石的细针，细针像菜叶般粗，而高就像成人由手腕到肘关节的长。<br><br>    当印度教的主神梵天在创造地球这个世界时，就在其中的一根针上从下到上放了半径由大到小的六十四片圆金片环，这就是有名的「梵塔」或称「汉内塔」（Towers of Hanoi）。<br><br>    天神梵天要这庙的僧侣，把这些金片全部由一根针移到另外一根指定的针上，一次只能移一片，不管在什么情况下，金片环的大小次序不能变更，小金片环永远只能放在大金片环上面。<br><br>    只要有一天这六十四片的金环能从指定的针上完全转移到另外指定的针上，世界末日就来到，芸芸众生、神庙一切都将消灭，万物尽入极乐世界去。<br><br>    n阶梵塔移动次数:设金片数为n，则移动次数=2的n次方-1<br><br>    以一秒钟移动一次计算，这需要夜以继日地搬动5800亿年！<br><br>    </p><br></blockquote><br>但凡计算机相关学科的学生，在学习编程入门时都会遇到这一题,因为这是最为经典的递归问题之一，就好像一开始学几何会遇到毕达哥拉斯定理，一开始学代数会遇到鸡兔同笼问题一样，考虑到我的读者不太了解我的专业，所以有以上说明。  </p>
+<p>不过我会突然跑来写这篇东西是非常羞耻的。。。当初大一刚入学学C语言，用的谭浩强的教材，才开始介绍程序结构的时候就冒出了这一题，当时的我完全没有计算机相关基础知识，以为会操作Windows会下两个盗版软件就是会用电脑，真是naive。。。于是乎就被这题吊打了。我还在思考什么整型浮点型，记忆1和1.0,3/2和3/2.0有啥区别，你突然就冒出一个递归算法不是搞我吗。。。学校的管理态度是放任自流的，但是平时的教学又是标准的985要求，搞得好像刚接触C语言的小白理解递归是非常自然事情。后来这题就一直成了我的心理阴影。这两天反思一下自己，想算算以前的账，所以把以前的问题找出来看一看。<br>话说回来，我以前一直搞不定编程，大概是是因为没有分清理科和工科的区别，老是把自己当成一个搞科学研究的人，力求想清楚遇到的每一个细节，力求严谨的推导，然后就死得很惨了。。。工科的第一要义是实用性，理论虽然重要但是并不是重点。编程尤甚，不会也硬着头皮写，写完拿去跑，不要提心吊胆，看着错误一点一点调试，慢慢就会了。  </p>
+<p>现在再来看这题，那真是轻松愉快，跟切菜一样（经历了两年还是有些成长的）。。。  </p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>对于n个盘子，要借助B柱把他们从A柱搬到C柱，standardization就是先把前 n - 1 个小盘子借助C柱搬到B柱，然后把此时A柱剩下的最大的盘子搬到C柱，再把B柱上的n - 1个盘子借助A柱搬到C柱。递归的不变量在于，对于前n - 1个盘子，也可以先不管第n - 1个盘子，先搬前n - 2个，对于前n - 2个盘子，也可以不管第n - 2个盘子，先搬前n - 3个盘子。。。这样一直追溯下次，就可以一直追溯到只剩一个盘子的时候，只剩一个盘子那直接从A搬到C就完事。。。  </p>
+<p>递归的神奇之处就在此————按照一种哲学式的抽象思维来写代码，而不用在脑中模拟程序每一时刻的执行过程。话说我以前就是因为老是想用脑袋一行行跟着代码走，力求甚解才会觉得编程困难的。想一上来就理清所有东西是不可能的，就好像我现在学了汇编跟组成原理才算是理解了编程时那些种种int，double在机器内部是怎么一回事，所以我觉得只有头很硬，不会想太多的人才算是对编程有天赋的人=_=。  </p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>废话那么半天，代码如下：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Move</span><span class="params">(<span class="keyword">char</span> from, <span class="keyword">char</span> to)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"step %d, move %c --&gt; %c\n"</span>, i++, from, to);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Hanoi</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> from, <span class="keyword">char</span> depend_on, <span class="keyword">char</span> to)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        Move(from, to);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Hanoi(n - <span class="number">1</span>, from, to, depend_on);</span><br><span class="line">        Move(from, to);</span><br><span class="line">        Hanoi(n - <span class="number">1</span>, depend_on, from, to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hanoi problem, enter the number of plate: "</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num);</span><br><span class="line">    Hanoi(num, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">我最终还是决定用C写，并且回归原本，尽管有更酷炫的io方法，网上也能查到许多牛人的效率更高的办法，这里还是就留我自己的程序吧。  </span><br><span class="line"></span><br><span class="line">### 结果</span><br></pre></td></tr></table></figure>
+<p>Hanoi problem, enter the number of plate:4<br>step 1, move A –&gt; B<br>step 2, move A –&gt; C<br>step 3, move B –&gt; C<br>step 4, move A –&gt; B<br>step 5, move C –&gt; A<br>step 6, move C –&gt; B<br>step 7, move A –&gt; B<br>step 8, move A –&gt; C<br>step 9, move B –&gt; C<br>step 10, move B –&gt; A<br>step 11, move C –&gt; A<br>step 12, move B –&gt; C<br>step 13, move A –&gt; B<br>step 14, move A –&gt; C<br>step 15, move B –&gt; C</p>
+<p>Process finished with exit code 0<br><code>`</code><br>也算是了却一桩心愿。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mingyunyuansu.github.io/2016/11/17/Hanoi-Tower-Problem/" data-id="cjq3yun9g0001wcih312rnn3c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学/">大学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随想/">随想</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/25/8086汇编冷知识/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          8086汇编冷知识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/24/A-Byte-of-Python笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">A Byte of Python clear读完</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/出行/">出行</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂记/">杂记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双指针/">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学/">大学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性/">性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游记/">游记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/留学/">留学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程/">编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LeetCode/" style="font-size: 15px;">LeetCode</a> <a href="/tags/双指针/" style="font-size: 10px;">双指针</a> <a href="/tags/大学/" style="font-size: 20px;">大学</a> <a href="/tags/性/" style="font-size: 10px;">性</a> <a href="/tags/汇编/" style="font-size: 10px;">汇编</a> <a href="/tags/游记/" style="font-size: 12.5px;">游记</a> <a href="/tags/留学/" style="font-size: 10px;">留学</a> <a href="/tags/笔记/" style="font-size: 15px;">笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编程/" style="font-size: 17.5px;">编程</a> <a href="/tags/随想/" style="font-size: 17.5px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/24/942. DI String Match/">942. DI String Match</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/25/毕业&旅行&分别/">毕业&amp;旅行&amp;分别</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/19/游武夷山/">游武夷山</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/13/关于抑郁症/">关于抑郁症</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/09/毕设前夕/">毕设之前</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Robert<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

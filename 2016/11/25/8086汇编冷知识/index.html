@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>8086汇编冷知识 | 施工中</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。现在的操作系统多为64位，那么是运行不了debug.exe masm.exe link.exe的，而且从Windows 2000(还是多少？不太确定，反正不关键)后，微软也把dos给去掉了。所以现在写汇编非常麻烦，我是windows10 64位系统，需要打开一个dosbox软件模拟do">
+<meta name="keywords" content="笔记,汇编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8086汇编冷知识">
+<meta property="og:url" content="https://mingyunyuansu.github.io/2016/11/25/8086汇编冷知识/index.html">
+<meta property="og:site_name" content="施工中">
+<meta property="og:description" content="呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。现在的操作系统多为64位，那么是运行不了debug.exe masm.exe link.exe的，而且从Windows 2000(还是多少？不太确定，反正不关键)后，微软也把dos给去掉了。所以现在写汇编非常麻烦，我是windows10 64位系统，需要打开一个dosbox软件模拟do">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-25T16:32:50.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8086汇编冷知识">
+<meta name="twitter:description" content="呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。现在的操作系统多为64位，那么是运行不了debug.exe masm.exe link.exe的，而且从Windows 2000(还是多少？不太确定，反正不关键)后，微软也把dos给去掉了。所以现在写汇编非常麻烦，我是windows10 64位系统，需要打开一个dosbox软件模拟do">
+  
+    <link rel="alternate" href="/atom.xml" title="施工中" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">施工中</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mingyunyuansu.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-8086汇编冷知识" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/25/8086汇编冷知识/" class="article-date">
+  <time datetime="2016-11-24T16:00:00.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      8086汇编冷知识
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。"><a href="#呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。" class="headerlink" title="呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。"></a>呃，其实就是学习汇编的时候总结的一些比较细的，但是又可能有用的知识整理，还有一些初学者的技巧，并不真的是生僻知识。</h1><p>现在的操作系统多为64位，那么是运行不了debug.exe masm.exe link.exe的，而且从Windows 2000(还是多少？不太确定，反正不关键)后，微软也把dos给去掉了。所以现在写汇编非常麻烦，我是windows10 64位系统，需要打开一个dosbox软件模拟dos环境，然后挂载程序(比如源文件，debug，masm，link程序所在的盘)，然后在虚拟环境下运行调试。而且masm6.15的可能有一些奇奇怪怪的问题，换成masm5.0就应该会稳定许多。当然还有其他的工具，比如masm32，甚至是IDE都有。不过既然是学汇编，在学语法的同时还是运用原始的工具比较好，不能太依赖开发环境。</p>
+<ul>
+<li><p>在 debug 模式下与源程序中对代码的识别是略微不同的。比如：</p>
+<ol>
+<li>debug 中，<code>mov ax, [0]</code>就是把<code>ds:0</code>的内容复制到ax中，但是如果这么写到源代码中，编译器会把<code>[0]</code>当做一个立即数0. 所以在源代码中，应该把内存的地址放到bx寄存器中（而且只能是bx），引用，如<code>mov ax, [bx]</code>。或者显式地指出短地址，比如写成<code>mov ax, ds:[0]</code>。注意，源代码中的<code>mov ax, [bx]</code>实际上是编译器默认数据段地址使用ds</li>
+<li>debug 中，输入的数字全部默认是16位，但是源代码中，要输入十六位数字必须末尾加h，否则编译器默认是十进制数</li>
+</ol>
+</li>
+<li><p>在 debug 中快速越过循环：</p>
+<ol>
+<li>可以在下一条命令是loop 时，按<code>p</code>，这时程序将会执行到 cx = 0 为止，即loop的下一条指令</li>
+<li>或者使用 g 命令，直接跳到指定的偏移地址，代码段由 cs给出，比如 <code>g 0012</code>，将直接执行到 cs:0012 处（但是该句不执行）。如果中间包含了循环，自然会把循环执行完</li>
+</ol>
+</li>
+<li><p>汇编并不是一种智能的语言，当执行<code>add al, 255</code>且<code>al</code>中数 &gt;1 的时候，不要妄想它会自动帮你把位进到 ah 中，他只会把溢出的部分丢掉，保留低八位。（因为你现在只是对 al 进行操作，al 只有八位）</p>
+</li>
+<li><p>在源代码中引用内存内容时，格式只能是 <code>[index]</code>，和<code>(段前缀：)[bx]</code>两种类型，且<code>[bx]</code>的段前缀若省略，则系统默认是ds，当然也可以显式指出。而且段前缀有且只有<code>ds:, cs:, ss:, es:</code>。但是如果用[index]的形式，前面不管段前缀写什么都会被当成<code>ds:[index]</code> <strong>更新</strong>：si, di 也可以实现与bx一样的功能，即是说，如果想动态的访问内从，变量只能是这三个寄存器。（而且性质与bx一样）</p>
+</li>
+<li><p>syntax sugar: 偏移地址可以写作 [dx/di/si + index]，就像C语言的数组那样，而且0[dx]和[dx + 0]是等效的</p>
+</li>
+<li><p>段寄存器，内存数据，在值想要改变的时候，必须要经过通用寄存器进行缓冲，由通用寄存器送入</p>
+</li>
+<li><p>一般情况下，dos和其他合法程序都不会使用 0:200 ~ 0:2ff 这256个空间，他们全是零，所以我们可以在这里操作</p>
+</li>
+<li><p>trick: 因为 <code>s: ...</code>一定在<code>loop s</code>前面，所以可以断言，从s到loop的代码的执行次数，与进入s时cx的大小相同。</p>
+</li>
+<li><p>80 86 汇编中，一个段的大小不能超过 64kb，为啥？因为偏移地址只有16位。</p>
+</li>
+<li><p>即使你已经<code>assume ss:stack</code>，在后面想用<code>ss</code>的话还是需要预先<code>mov ax, stack</code>, <code>mov ss, ax</code></p>
+</li>
+<li><p>程序只是一段 000001110110001010101001 这样的数据，你需要用一个<code>start:</code>来指明运行时从哪里开始，类似C中的main()函数。如果你不写那就默认当做从头开始了。 不过并不是说编译器会识别有个 start 关键字，而是你定义了这样一个 mark 以后，在程序结束的时候，写上<code>end start</code>，即由end后面的关键字钦定，让编译器知道。所以如果你乐意，也可在入口处写<code>fuck:</code>，最后<code>end fuck</code>即可</p>
+</li>
+<li><p>教材上会这么写：”debug一个程序，因为ds=0b2d，所以程序从0b3d开始”。为啥？因为实际上加载完一个程序后，ds指到的其实是一段叫做PSP的数据，这段数据偏移地址为0~ffh，共256字节。从100h处开始是真正的程序代码。这个关系反映到偏移地址中，就是程序真正开始处的段地址为 ds+10h，即 (ds*10h + 10h) : 0</p>
+</li>
+<li><p><strong>（难点）关于<code>jmp short s</code>这样的短转移的</strong> 一定要注意，机器码中存放的是位移量的大小。也就是说，把存在位置s2的<code>jmp short s</code>，里面的内存的机器码复制到s1处（代码中标号顺序顺序为s, s1, s2），那么在s1 处执行的<code>jmp short s</code>将不能正确跳转到s（会跑到s上面，因为移动的距离是固定的）。</p>
+</li>
+<li><p>跳转，基本上可以这样分：</p>
+<ol>
+<li>jmp short s 是段内转移，距离八位，距离不超过 -128~127</li>
+<li>jmp near ptr s 是段内转移，距离16位，距离不超过 -32768~32767</li>
+<li>jmp far ptr s 是段间转移，距离直接写在机器代码中，两个字，低位字是目标段地址，高位字是目标偏移地址（但是这里要存疑，有可能记反了）。另外如果是call far ptr，那么就是先push cs, 再push ip</li>
+<li><p>除了 加入了<code>far ptr</code>，其他的call 都是只存ip，而加了的话就是 <code>push cs; push ip</code></p>
+</li>
+<li><p><code>call symbol; ... ;symbol:...; ret</code>这种调用函数并返回的机制，跟C语言的实现是一个意思。只不过在汇编中，call是把当前地址存到stack，ret是拿出，要小心维护。</p>
+</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mingyunyuansu.github.io/2016/11/25/8086汇编冷知识/" data-id="cjq3ynf9t0000i0ihehi35ksh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/汇编/">汇编</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/19/gdb使用笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          gdb使用笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/17/Hanoi-Tower-Problem/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hanoi Tower Problem</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/出行/">出行</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂记/">杂记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双指针/">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学/">大学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性/">性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游记/">游记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/留学/">留学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程/">编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LeetCode/" style="font-size: 15px;">LeetCode</a> <a href="/tags/双指针/" style="font-size: 10px;">双指针</a> <a href="/tags/大学/" style="font-size: 20px;">大学</a> <a href="/tags/性/" style="font-size: 10px;">性</a> <a href="/tags/汇编/" style="font-size: 10px;">汇编</a> <a href="/tags/游记/" style="font-size: 12.5px;">游记</a> <a href="/tags/留学/" style="font-size: 10px;">留学</a> <a href="/tags/笔记/" style="font-size: 15px;">笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编程/" style="font-size: 17.5px;">编程</a> <a href="/tags/随想/" style="font-size: 17.5px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/24/942. DI String Match/">942. DI String Match</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/25/毕业&旅行&分别/">毕业&amp;旅行&amp;分别</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/19/游武夷山/">游武夷山</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/13/关于抑郁症/">关于抑郁症</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/09/毕设前夕/">毕设之前</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Robert<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
